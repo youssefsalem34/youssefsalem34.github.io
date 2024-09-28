@@ -40,4 +40,27 @@ window.addEventListener("scroll", () => {
     isBackToTopRendered = false;
     alterStyles(isBackToTopRendered);
   }
+
+  
+});
+
+/* -----------------------------------------
+  Customer Reviews Section Logic
+ ---------------------------------------- */
+ document.getElementById('reviewForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  const name = document.getElementById('name').value;
+  const reviewText = document.getElementById('reviewText').value;
+
+  if (name && reviewText) {
+    const reviewList = document.getElementById('reviewList');
+    const review = document.createElement('div');
+    review.innerHTML = `<strong>${name}</strong>: <p>${reviewText}</p>`;
+    reviewList.appendChild(review);
+
+    // Clear the form
+    document.getElementById('name').value = '';
+    document.getElementById('reviewText').value = '';
+  }
 });
