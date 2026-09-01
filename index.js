@@ -9,7 +9,6 @@ const handleFirstTab = (e) => {
     window.removeEventListener('keydown', handleFirstTab)
     window.addEventListener('mousedown', handleMouseDownOnce)
   }
-
 }
 
 const handleMouseDownOnce = () => {
@@ -40,7 +39,32 @@ window.addEventListener("scroll", () => {
     isBackToTopRendered = false;
     alterStyles(isBackToTopRendered);
   }
-
-  
 });
 
+
+/* -----------------------------------------
+   Image Carousel
+ ---------------------------------------- */
+
+function moveSlide(button, direction) {
+  const carousel = button.closest(".work__carousel");
+  const images = carousel.querySelectorAll(".carousel__image");
+
+  let currentIndex = Array.from(images).findIndex(
+    image => image.classList.contains("active")
+  );
+
+  images[currentIndex].classList.remove("active");
+
+  currentIndex += direction;
+
+  if (currentIndex >= images.length) {
+    currentIndex = 0;
+  }
+
+  if (currentIndex < 0) {
+    currentIndex = images.length - 1;
+  }
+
+  images[currentIndex].classList.add("active");
+}
