@@ -46,25 +46,40 @@ window.addEventListener("scroll", () => {
    Image Carousel
  ---------------------------------------- */
 
-function moveSlide(button, direction) {
-  const carousel = button.closest(".work__carousel");
+document.querySelectorAll(".work__carousel").forEach((carousel) => {
   const images = carousel.querySelectorAll(".carousel__image");
+  const leftButton = carousel.querySelector(".carousel__button--left");
+  const rightButton = carousel.querySelector(".carousel__button--right");
 
-  let currentIndex = Array.from(images).findIndex(
-    image => image.classList.contains("active")
-  );
+  let currentIndex = 0;
 
-  images[currentIndex].classList.remove("active");
+  function showImage(index) {
+    images.forEach((image) => {
+      image.classList.remove("active");
+    });
 
-  currentIndex += direction;
-
-  if (currentIndex >= images.length) {
-    currentIndex = 0;
+    images[index].classList.add("active");
   }
 
-  if (currentIndex < 0) {
-    currentIndex = images.length - 1;
-  }
+  leftButton.addEventListener("click", () => {
+    currentIndex--;
 
-  images[currentIndex].classList.add("active");
-}
+    if (currentIndex < 0) {
+      currentIndex = images.length - 1;
+    }
+
+    showImage(currentIndex);
+  });
+
+  rightButton.addEventListener("click", () => {
+    currentIndex++;
+
+    if (currentIndex >= images.length) {
+      currentIndex = 0;
+    }
+
+    showImage(currentIndex);
+  });
+
+  showImage(currentIndex);
+});
